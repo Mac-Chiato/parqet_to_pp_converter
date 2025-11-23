@@ -13,7 +13,10 @@ def map_type_to_german(type_value):
     mapping = {
         'Buy': 'Kauf',
         'Sell': 'Verkauf',
-        'Dividend': 'Dividende'
+        'Dividend': 'Dividende',
+        'TransferIn': 'Einlage',
+        'TransferOut': 'Entnahme',
+        'Interest': 'Zinsen'
         # Add more mappings if necessary
     }
     return mapping.get(type_value, type_value)
