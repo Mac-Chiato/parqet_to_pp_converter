@@ -23,9 +23,9 @@ def convert():
         input_df = pd.read_csv(file.stream, delimiter=';')
         transformed_df = transform_data(input_df)
 
-        # Convert DataFrame to CSV
+        # Convert DataFrame to CSV (use UTF-8 to support all characters)
         stream = BytesIO()
-        transformed_df.to_csv(stream, index=False, sep=';', encoding='iso-8859-1')
+        transformed_df.to_csv(stream, index=False, sep=';', encoding='utf-8')
         stream.seek(0)
 
         # Create a response and set a cookie

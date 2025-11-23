@@ -48,7 +48,8 @@ def transform_data(input_df):
     return output_df
 
 def write_output_csv(output_df, file_path):
-    output_df.to_csv(file_path, index=False, sep=';', encoding='iso-8859-1')
+    # Use UTF-8 to support characters like curly quotes and other punctuation
+    output_df.to_csv(file_path, index=False, sep=';', encoding='utf-8')
 
 # # Example usage
 # input_file = 'Sample.csv'  # Replace with the path to your input CSV file
