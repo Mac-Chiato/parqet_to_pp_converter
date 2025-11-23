@@ -9,6 +9,11 @@ def convert_to_german_format(value):
         return str(value).replace('.', ',')
     return value
 
+def convert_to_float(value):
+    if pd.notna(value):
+        return float(str(value).replace(',', '.'))
+    return value
+
 def map_type_to_german(type_value):
     mapping = {
         'Buy': 'Kauf',
@@ -29,11 +34,12 @@ def transform_data(input_df):
         # Parsing the 'datetime' field to handle the UTC format
         parsed_date = parser.parse(row['datetime'])
         datum = parsed_date.strftime('%Y-%m-%dT%H:%M')
+        wert = convert_to_german_format(convert_to_float(row['amount']) - convert_to_float(row['tax'])) if row['tax'] else convert_to_german_format(row['amount'])
 
         output_df = pd.concat([output_df, pd.DataFrame([{
             'Datum': datum,
             'Typ': map_type_to_german(row['type']),
-            'Wert': convert_to_german_format(row['amount']),
+            'Wert': wert,
             'Buchungswährung': row['currency'],
             'Bruttobetrag': convert_to_german_format(row['price']),
             'Währung Bruttobetrag': row['currency'],
